@@ -17,3 +17,5 @@ hs_err_pid*
 nbproject/private/private.properties
 /Assignment1/nbproject/private/
 .idea
+.vscode
+*.iml

@@ -14,13 +14,13 @@ public class EvaluatorUI extends JFrame implements ActionListener {
     // numbered from left to right, top to bottom
     // bText[] array contains the text for corresponding buttons
     private static final String[] bText = {
-        "7", "8", "9", "+", "4", "5", "6", "- ", "1", "2", "3",
-        "*", "0", "^", "=", "/", "(", ")", "C", "CE"
+            "7", "8", "9", "+", "4", "5", "6", "- ", "1", "2", "3",
+            "*", "0", "^", "=", "/", "(", ")", "C", "CE"
     };
 
     /**
      * C  is for clear, clears entire expression
-     * CE is for clear expression, clears last entry up until the last operator.
+     * CE is for clear expression (or entry), clears last entry up until the last operator.
      */
     private Button[] buttons = new Button[bText.length];
 
@@ -64,8 +64,14 @@ public class EvaluatorUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent arg0) {
-        this.txField.setText(this.txField.getText()+arg0.getActionCommand());
+    /**
+     * This function is triggered anytime a button is pressed
+     * on our Calculator GUI.
+     * @param eventObject Event object generated when a
+     *                    button is pressed.
+     */
+    public void actionPerformed(ActionEvent eventObject) {
+
 
     }
 }

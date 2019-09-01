@@ -19,7 +19,7 @@ public class EvaluatorDriver {
 
     static HashMap<String, String> testExpressions;
 
-    /**
+    /*
      * **** Static Initializer Block Explanation ****
      * This block of code is called a static initializer. It is executed when
      * this class loaded  by the JVM. When the class is actually loaded is tricky.
@@ -28,27 +28,28 @@ public class EvaluatorDriver {
      * would be loaded when the class is referenced.
      */
     static {
-        EvaluatorDriver.testExpressions =  new HashMap<>();
-        EvaluatorDriver.testExpressions.put("1+2","3");
-        EvaluatorDriver.testExpressions.put("1/2","0");
-        EvaluatorDriver.testExpressions.put("1+2*3","7");
-        EvaluatorDriver.testExpressions.put("(1+2)*3","9");
-        EvaluatorDriver.testExpressions.put("2-(3/10)+2-5","-1");
-        EvaluatorDriver.testExpressions.put("(6-12*2)/3","-6");
-        EvaluatorDriver.testExpressions.put("3^2","9");
-        EvaluatorDriver.testExpressions.put("3^2/2","4");
-        EvaluatorDriver.testExpressions.put("3^2/2 +(4+5)","13");
-        EvaluatorDriver.testExpressions.put("3^2 + (2^4) +(4+5)","34");
-        EvaluatorDriver.testExpressions.put("3+2-9+8*2 + (3+9-8/2)","20");
-        EvaluatorDriver.testExpressions.put("2+3-5*((2-3)*2-5*2+3*(2-3-5-5*6)+4/2)*2-9","1176");
+        EvaluatorDriver.testExpressions = new HashMap<>();
+        EvaluatorDriver.testExpressions.put("1+2", "3");
+        EvaluatorDriver.testExpressions.put("1/2", "0");
+        EvaluatorDriver.testExpressions.put("1+2*3", "7");
+        EvaluatorDriver.testExpressions.put("(1+2)*3", "9");
+        EvaluatorDriver.testExpressions.put("2-(3/10)+2-5", "-1");
+        EvaluatorDriver.testExpressions.put("(6-12*2)/3", "-6");
+        EvaluatorDriver.testExpressions.put("3^2", "9");
+        EvaluatorDriver.testExpressions.put("3^2/2", "4");
+        EvaluatorDriver.testExpressions.put("3^2/2 +(4+5)", "13");
+        EvaluatorDriver.testExpressions.put("3^2 + (2^4) +(4+5)", "34");
+        EvaluatorDriver.testExpressions.put("3+2-9+8*2 + (3+9-8/2)", "20");
+        EvaluatorDriver.testExpressions.put("2+3-5*((2-3)*2-5*2+3*(2-3-5-5*6)+4/2)*2-9", "1176");
     }
-    public static void main(String... args){
+
+    public static void main(String... args) {
         BufferedReader input;
         String exp;
         int res;
 
         Evaluator ev = new Evaluator();
-        if(args.length == 0) {
+        if (args.length == 0) {
             /* if no command line arguments are given, we will ask for expressions */
             try {
                 input = new BufferedReader(new InputStreamReader(System.in));
@@ -61,26 +62,33 @@ public class EvaluatorDriver {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
-        }else if(args.length == 1 && (args[0].toLowerCase()).equals("auto")){
+        } else if (args.length == 1 && (args[0].toLowerCase()).equals("auto")) {
             /* if only 1 command line argument is given AND it is auto we will
              * run expressions in the above HashMap
              */
-            EvaluatorDriver.testExpressions.forEach( (expression, expectedResult) -> {
-                String yourResult = ev.eval(expression)+"";
-                System.out.printf("%45s %5s : %5s : %7s%n", expression,
-                                                            expectedResult,
-                                                            yourResult,
-                                                            expectedResult.equals(yourResult) ? "Passed" : "Failed");
+            EvaluatorDriver.testExpressions.forEach((expression, expectedResult) -> {
+                try {
+                    String yourResult = ev.eval(expression) + "";
+                    System.out.printf("%45s %5s : %5s : %7s%n", expression,
+                            expectedResult,
+                            yourResult,
+                            expectedResult.equals(yourResult) ? "Passed" : "Failed");
+                }catch(Exception ex){
+                    System.out.printf("%45s %5s : %5s : %7s%n", expression,
+                            expectedResult,
+                            "failed",
+                            expectedResult.equals("") ? "Passed" : "Failed");
+                }
 
             });
-        }else{
+        } else {
             /* if a list of expressions are given as command line arguments
              * we will execute all of them and display results.
              * The format of the list of expressions should be:
              * exp0 exp1 exp2 ... expN
              * Each expressions should separated by spaces.
              */
-            for(String ex : args) {
+            for (String ex : args) {
                 res = ev.eval(ex);
                 System.out.printf("Expression : %s , Result: %-6d\n", ex, res);
             }
