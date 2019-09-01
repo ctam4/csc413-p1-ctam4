@@ -19,3 +19,4 @@ nbproject/private/private.properties
 .idea
 .vscode
 *.iml
+.DS_Store
