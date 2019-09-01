@@ -8,7 +8,7 @@
 
 ### Note failure to completely fill out this README.md could cause you to recieve a  0 for your project until correctly done
 
-## Adding the JUnit 5 Jars to your project.
+# Adding the JUnit 5 Jars to your project.
 
 ### InteliJ
 In order to use the Unit tests given you will need to let intelij know where to find the needed jars. (jars are just java version of an archived folder or zip file.). 
