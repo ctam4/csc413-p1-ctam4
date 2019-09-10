@@ -41,8 +41,9 @@ public class Operand {
      */
     public static boolean check(String token) {
         if (token == null) {
+            System.out.println("*****null operand******");
             throw new IllegalArgumentException();
         }
-        return token.matches("[-+]?\\d*\\.?\\d+");
+        return token.matches("[-+]?\\d+");
     }
 }

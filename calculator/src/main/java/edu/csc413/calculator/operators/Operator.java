@@ -67,6 +67,7 @@ public abstract class Operator {
      */
     public static Operator getOperator(String token) {
         if (token == null) {
+            System.out.println("*****null operator******");
             throw new IllegalArgumentException();
         }
         return (Operator) operators.get(token);
