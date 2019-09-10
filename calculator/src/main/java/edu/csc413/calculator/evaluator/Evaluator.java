@@ -9,7 +9,7 @@ public class Evaluator {
     private Stack<Operand> operandStack;
     private Stack<Operator> operatorStack;
     private StringTokenizer tokenizer;
-    private static final String DELIMITERS = "+-*^/ ";
+    private static final String DELIMITERS = "+-*^/ ()";
 
     public Evaluator() {
         operandStack = new Stack<>();
