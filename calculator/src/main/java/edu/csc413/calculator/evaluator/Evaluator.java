@@ -20,6 +20,11 @@ public class Evaluator {
         if (oldOpr == null || op1 == null || op2 == null) {
             throw new IllegalArgumentException();
         }
+        if (!operatorStack.isEmpty() && operatorStack.peek().getClass().getSimpleName().equals("SubtractOperator")) {
+            operatorStack.pop();
+            operatorStack.push(Operator.getOperator("+"));
+            op1 = new Operand(op1.getValue() * -1);
+        }
         Operand result = oldOpr.execute(op1, op2);
         if (result == null) {
             System.out.println("*****execute results null******");
@@ -30,6 +35,7 @@ public class Evaluator {
 
     public int eval(String expression) {
         String token;
+        Operand op1, op2;
 
         // The 3rd argument is true to indicate that the delimiters should be used
         // as tokens, too. But, we'll need to remember to filter out spaces.
@@ -49,40 +55,32 @@ public class Evaluator {
                             throw new RuntimeException("*****invalid token******");
                         }
                         // create new operator object from token
-                        Operator newOperator = (Operator) Operator.getOperator(token);
-                        // check if operator is "(", operator stack is empty, or not empty but current operator priortiy is greater than the previous one
-                        if (newOperator.getClass().getSimpleName() == "OpeningParenthesisOperator" ||
-                        operatorStack.size() == 0 ||
+                        Operator newOperator = Operator.getOperator(token);
+                        // check if operator is "(", operator stack is empty, or not empty but current operator priority is greater than the previous one
+                        if (newOperator.getClass().getSimpleName().equals("OpeningParenthesisOperator") ||
+                        operatorStack.isEmpty() ||
                         newOperator.priority() >= operatorStack.peek().priority()) {
                             operatorStack.push(newOperator);
                         }
                         // check if operator is ")"
-                        else if (newOperator.getClass().getSimpleName() == "ClosingParenthesisOperator") {
+                        else if (newOperator.getClass().getSimpleName().equals("ClosingParenthesisOperator")) {
                             // process operators until the "(" is encountered
-                            Operator oldOpr;
-                            Operand op1, op2;
                             do {
-                                oldOpr = operatorStack.pop();
                                 op2 = operandStack.pop();
                                 op1 = operandStack.pop();
-                                process(oldOpr, op1, op2);
-                            } while (operatorStack.peek().getClass().getSimpleName() != "OpeningParenthesisOperator");
+                                process(operatorStack.pop(), op1, op2);
+                            } while (!operatorStack.peek().getClass().getSimpleName().equals("OpeningParenthesisOperator"));
+                            operatorStack.pop();
                         }
                         // if none of above cases apply
                         else {
-                            // process an operator
-                            Operator oldOpr;
-                            Operand op1, op2;
-                            while (operatorStack.peek().priority() >= newOperator.priority() && operandStack.size() >= 2) {
-                                // note that when we eval the expression 1 - 2 we will
-                                // push the 1 then the 2 and then do the subtraction operation
-                                // This means that the first number to be popped is the
-                                // second operand, not the first operand - see the following code
-                                oldOpr = operatorStack.pop();
+                            // process an operator only if operator stack is not empty and top of operator stack has higher priority
+                            while (!operatorStack.isEmpty() && operatorStack.peek().priority() >= newOperator.priority() && operandStack.size() >= 2) {
                                 op2 = operandStack.pop();
                                 op1 = operandStack.pop();
-                                process(oldOpr, op1, op2);
+                                process(operatorStack.pop(), op1, op2);
                             }
+                            operatorStack.push(newOperator);
                         }
                     }
                 } catch (IllegalArgumentException e) {
@@ -100,9 +98,17 @@ public class Evaluator {
         // In order to complete the evaluation we must empty the stacks,
         // that is, we should keep evaluating the operator stack until it is empty;
         // Suggestion: create a method that processes the operator stack until empty.
-        operatorStack.clear();
+        while (!operatorStack.isEmpty()) {
+            // note that when we eval the expression 1 - 2 we will
+            // push the 1 then the 2 and then do the subtraction operation
+            // This means that the first number to be popped is the
+            // second operand, not the first operand - see the following code
+            op2 = operandStack.pop();
+            op1 = operandStack.pop();
+            process(operatorStack.pop(), op1, op2);
+        }
 
         //Don't forget to change the return value!
-        return operandStack.peek().getValue();
+        return operandStack.pop().getValue();
     }
 }
