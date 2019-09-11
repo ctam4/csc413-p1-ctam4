@@ -15,8 +15,7 @@ public class EvaluatorUI extends JFrame implements ActionListener {
      * bText[] array contains the text for corresponding buttons
      */
     private static final String[] bText = {
-            "7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3",
-            "*", "0", "^", "=", "/", "(", ")", "C", "CE"
+        "7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "0", "^", "=", "/", "(", ")", "C", "CE"
     };
 
     /**
@@ -73,6 +72,7 @@ public class EvaluatorUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent eventObject) {
         String inputVal = eventObject.getActionCommand();
         switch (inputVal) {
+            case "0":
             case "1":
             case "2":
             case "3":
@@ -82,7 +82,6 @@ public class EvaluatorUI extends JFrame implements ActionListener {
             case "7":
             case "8":
             case "9":
-            case "0":
                 // just append to textfield
                 txField.setText(txField.getText() + inputVal);
                 break;
@@ -107,6 +106,7 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                 if (txField.getText().length() > 0) {
                     // check last character
                     switch (txField.getText().charAt(txField.getText().length() - 1)) {
+                        case '0':
                         case '1':
                         case '2':
                         case '3':
@@ -116,7 +116,6 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                         case '7':
                         case '8':
                         case '9':
-                        case '0':
                         case ')':
                             // append to textfield
                             txField.setText(txField.getText() + inputVal);
@@ -191,6 +190,7 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                     do {
                         // check last character
                         switch (txField.getText().charAt(txField.getText().length() - 1)) {
+                            case '0':
                             case '1':
                             case '2':
                             case '3':
@@ -200,7 +200,6 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                             case '7':
                             case '8':
                             case '9':
-                            case '0':
                                 // remove last character from textfield
                                 txField.setText(txField.getText().substring(0, txField.getText().length() - 1));
                                 break;
@@ -232,6 +231,7 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                     if (closingP - openingP == 0) {
                         // check last character
                         switch (txField.getText().charAt(txField.getText().length() - 1)) {
+                            case '0':
                             case '1':
                             case '2':
                             case '3':
@@ -241,7 +241,6 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                             case '7':
                             case '8':
                             case '9':
-                            case '0':
                             case ')':
                                 // submit to evaluator and get results
                                 Evaluator eval = new Evaluator();

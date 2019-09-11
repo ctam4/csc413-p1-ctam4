@@ -26,6 +26,7 @@ public class Evaluator {
      */
     private void process(Operator oldOpr, Operand op1, Operand op2) {
         if (oldOpr == null || op1 == null || op2 == null) {
+            System.out.println("*****null operator and/or operand******");
             throw new IllegalArgumentException();
         }
         if (!operatorStack.isEmpty() && operatorStack.peek().getClass().getSimpleName().equals("SubtractOperator")) {
@@ -83,7 +84,9 @@ public class Evaluator {
                         // if none of above cases apply
                         else {
                             // process an operator only if operator stack is not empty and top of operator stack has higher priority
-                            while (!operatorStack.isEmpty() && operatorStack.peek().priority() >= newOperator.priority() && operandStack.size() >= 2) {
+                            while (!operatorStack.isEmpty() &&
+                            operatorStack.peek().priority() >= newOperator.priority() &&
+                            operandStack.size() >= 2) {
                                 op2 = operandStack.pop();
                                 op1 = operandStack.pop();
                                 process(operatorStack.pop(), op1, op2);
