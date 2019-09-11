@@ -16,7 +16,6 @@ public class EvaluatorDriver {
      *
      * @param args command line arguments.
      */
-
     static HashMap<String, String> testExpressions;
 
     /*
