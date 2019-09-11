@@ -9,9 +9,11 @@ public class EvaluatorUI extends JFrame implements ActionListener {
     private TextField txField = new TextField();
     private Panel buttonPanel = new Panel();
 
-    // total of 20 buttons on the calculator,
-    // numbered from left to right, top to bottom
-    // bText[] array contains the text for corresponding buttons
+    /**
+     * total of 20 buttons on the calculator,
+     * numbered from left to right, top to bottom
+     * bText[] array contains the text for corresponding buttons
+     */
     private static final String[] bText = {
             "7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3",
             "*", "0", "^", "=", "/", "(", ")", "C", "CE"
@@ -64,8 +66,7 @@ public class EvaluatorUI extends JFrame implements ActionListener {
     }
 
     /**
-     * This function is triggered anytime a button is pressed
-     * on our Calculator GUI.
+     * This function is triggered anytime a button is pressed on our Calculator GUI
      *
      * @param eventObject Event object generated when a button is pressed.
      */
@@ -104,7 +105,7 @@ public class EvaluatorUI extends JFrame implements ActionListener {
             case "^":
                 // check if previous character for operator
                 if (txField.getText().length() > 0) {
-                    // check if previous character is not operator
+                    // check last character
                     switch (txField.getText().charAt(txField.getText().length() - 1)) {
                         case '1':
                         case '2':
@@ -147,6 +148,7 @@ public class EvaluatorUI extends JFrame implements ActionListener {
             case "(":
                 // check if textfield is not empty
                 if (txField.getText().length() > 0) {
+                    // check last character
                     switch (txField.getText().charAt(txField.getText().length() - 1)) {
                         case '+':
                         case '-':
@@ -170,7 +172,7 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                 if (txField.getText().length() > 1) {
                     int openingP = txField.getText().split("\\(", -1).length - 1;
                     int closingP = txField.getText().split("\\)", -1).length - 1;
-                    // check if there has enough parenthesises
+                    // check if textfield has enough parentheses
                     if (openingP - closingP > 0) {
                         // append to textfield
                         txField.setText(txField.getText() + inputVal);
@@ -187,6 +189,7 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                     int i = 0;
                     boolean endLoop = false;
                     do {
+                        // check last character
                         switch (txField.getText().charAt(txField.getText().length() - 1)) {
                             case '1':
                             case '2':
@@ -223,11 +226,11 @@ public class EvaluatorUI extends JFrame implements ActionListener {
             case "=":
                 // check if textfield is not empty
                 if (txField.getText().length() > 0) {
-                    // check for opening and closing parenthesises
+                    // check for number of opening and closing parentheses
                     int openingP = txField.getText().split("\\(", -1).length - 1;
                     int closingP = txField.getText().split("\\)", -1).length - 1;
                     if (closingP - openingP == 0) {
-                        // check if last character is an operator
+                        // check last character
                         switch (txField.getText().charAt(txField.getText().length() - 1)) {
                             case '1':
                             case '2':

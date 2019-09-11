@@ -16,6 +16,14 @@ public class Evaluator {
         operatorStack = new Stack<>();
     }
 
+    /**
+     * process operator and push the result to operand stack
+     * op1 <oldOpr operation> op2
+     *
+     * @param oldOpr an operator object
+     * @param op1 operand object #1
+     * @param op2 operand object #2
+     */
     private void process(Operator oldOpr, Operand op1, Operand op2) {
         if (oldOpr == null || op1 == null || op2 == null) {
             throw new IllegalArgumentException();
@@ -108,7 +116,7 @@ public class Evaluator {
             process(operatorStack.pop(), op1, op2);
         }
 
-        //Don't forget to change the return value!
+        // Don't forget to change the return value!
         return operandStack.pop().getValue();
     }
 }

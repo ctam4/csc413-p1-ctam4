@@ -49,7 +49,7 @@ public class EvaluatorDriver {
 
         Evaluator ev = new Evaluator();
         if (args.length == 0) {
-            /* if no command line arguments are given, we will ask for expressions */
+            // if no command line arguments are given, we will ask for expressions
             try {
                 input = new BufferedReader(new InputStreamReader(System.in));
                 while (true) {
@@ -62,9 +62,7 @@ public class EvaluatorDriver {
                 System.out.println(ex.getMessage());
             }
         } else if (args.length == 1 && (args[0].toLowerCase()).equals("auto")) {
-            /* if only 1 command line argument is given AND it is auto we will
-             * run expressions in the above HashMap
-             */
+            // if only 1 command line argument is given AND it is auto we will run expressions in the above HashMap
             EvaluatorDriver.testExpressions.forEach((expression, expectedResult) -> {
                 try {
                     String yourResult = ev.eval(expression) + "";
@@ -81,7 +79,8 @@ public class EvaluatorDriver {
 
             });
         } else {
-            /* if a list of expressions are given as command line arguments
+            /**
+             * If a list of expressions are given as command line arguments
              * we will execute all of them and display results.
              * The format of the list of expressions should be:
              * exp0 exp1 exp2 ... expN
@@ -91,7 +90,6 @@ public class EvaluatorDriver {
                 res = ev.eval(ex);
                 System.out.printf("Expression : %s , Result: %-6d\n", ex, res);
             }
-
         }
     }
 }
