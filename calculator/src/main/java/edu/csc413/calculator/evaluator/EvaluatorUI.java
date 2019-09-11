@@ -130,7 +130,13 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                                 txField.setText(txField.getText().substring(0,txField.getText().length() - 1) + inputVal);
                             }
                             break;
-                        // do nothing at (
+                        case '(':
+                            // check if current character is a -
+                            if (inputVal.charAt(0) == '-') {
+                                // append to textfield
+                                txField.setText(txField.getText() + inputVal);
+                            }
+                            break;
                     }
                 }
                 // just append to textfield
