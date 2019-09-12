@@ -139,10 +139,6 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                             break;
                     }
                 }
-                // just append to textfield
-                else {
-                    txField.setText(inputVal);
-                }
                 break;
             case "(":
                 // check if textfield is not empty
