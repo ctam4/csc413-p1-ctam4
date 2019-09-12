@@ -29,11 +29,6 @@ public class Evaluator {
             System.out.println("*****null operator and/or operand******");
             throw new IllegalArgumentException();
         }
-        if (!operatorStack.isEmpty() && operatorStack.peek().getClass().getSimpleName().equals("SubtractOperator")) {
-            operatorStack.pop();
-            operatorStack.push(Operator.getOperator("+"));
-            op1 = new Operand(op1.getValue() * -1);
-        }
         Operand result = oldOpr.execute(op1, op2);
         if (result == null) {
             System.out.println("*****execute results null******");
