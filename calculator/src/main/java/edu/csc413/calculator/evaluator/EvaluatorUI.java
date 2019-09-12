@@ -86,10 +86,34 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                 txField.setText(txField.getText() + inputVal);
                 break;
             /*case ".":
-                // check if previous character for operator or .
+                // check if previous character for operator
                 if (txField.getText().length() > 0) {
-                    if (txField.getText().charAt(txField.getText().length() - 1) != inputVal.charAt(0)) {
-                        txField.setText(txField.getText() + inputVal);
+                    // check last character
+                    switch (txField.getText().charAt(txField.getText().length() - 1)) {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':
+                            // TODO: check if previous operand has a . already
+                            // append to textfield
+                            txField.setText(txField.getText() + inputVal);
+                            break;
+                        case '+':
+                        case '-':
+                        case '*':
+                        case '/':
+                        case '^':
+                        case '(':
+                            // just append to textfield with a leading 0
+                            txField.setText(txField.getText() + "0" + inputVal);
+                            break;
+                        // do nothing at .,)
                     }
                 }
                 // just append to textfield with a leading 0
@@ -212,7 +236,6 @@ public class EvaluatorUI extends JFrame implements ActionListener {
                                 }
                                 endLoop = true;
                                 break;
-                            // do nothing at +,-,*,/,^,(,)
                         }
                         i++;
                     } while (!endLoop && txField.getText().length() > 0);
